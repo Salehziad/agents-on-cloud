@@ -1,13 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import FileBase64 from 'react-file-base64';
 import {isAuthenticated} from '../../../auth';
-import {updateItem,getOneItem} from '../../../api/itemApi'
-import { useParams } from 'react-router-dom';
-
-// import {createProduct, getCategories} from './apiAdmin';
+import {updateItem, getOneItem} from '../../../api/itemApi'
+import {useParams} from 'react-router-dom';
 
 export default function UpdateItem({match}) {
-    const { itemId } = useParams();
+    const {itemId} = useParams();
     const [item,
         setItem] = useState({
         name: '',
@@ -33,32 +31,31 @@ export default function UpdateItem({match}) {
         location,
         loading,
         error,
-        createdProduct,
+        createdProduct
     } = item;
 
-        
     useEffect(() => {
         productData(itemId)
     }, []);
 
     function productData(id) {
-       getOneItem(id).then(data => {
-        if (data.error) {
-            setItem({
-                ...item,
-                error: data.error
-            });
-        } else {
-            setItem({
-                ...item,
-                name:data.name,
-                description:data.description,
-                price:data.price,
-                location:data.location,
-                category:data.category
-            });
-        }
-    });
+        getOneItem(id).then(data => {
+            if (data.error) {
+                setItem({
+                    ...item,
+                    error: data.error
+                });
+            } else {
+                setItem({
+                    ...item,
+                    name: data.name,
+                    description: data.description,
+                    price: data.price,
+                    location: data.location,
+                    category: data.category
+                });
+            }
+        });
     }
 
     const handleChange = name => event => {
@@ -67,7 +64,7 @@ export default function UpdateItem({match}) {
             ...item,
             [name]: value,
             loading: false,
-        createdProduct: '',
+            createdProduct: ''
         });
     };
 
@@ -79,7 +76,7 @@ export default function UpdateItem({match}) {
             loading: true
         });
 
-        updateItem(user._id,itemId, token, item).then(data => {
+        updateItem(user._id, itemId, token, item).then(data => {
             if (data.error) {
                 setItem({
                     ...item,
@@ -92,8 +89,8 @@ export default function UpdateItem({match}) {
                     description: '',
                     image: null,
                     price: '',
-                    category:'',
-                    location:'',
+                    category: '',
+                    location: '',
                     quantity: '',
                     loading: false,
                     createdProduct: data.data.name
@@ -114,14 +111,14 @@ export default function UpdateItem({match}) {
                         multiple={false}
                         onDone={({base64}) => setItem({
                         ...item,
-                        image: base64,
+                        image: base64
                     })}/>
                 </div>
 
                 <div className="form-group">
                     <label className="text-muted">Name</label>
                     <input
-                    required
+                        required
                         onChange={handleChange('name')}
                         type="text"
                         className="form-control"
@@ -131,7 +128,7 @@ export default function UpdateItem({match}) {
                 <div className="form-group">
                     <label className="text-muted">Description</label>
                     <textarea
-                    required
+                        required
                         onChange={handleChange('description')}
                         className="form-control"
                         value={description}/>
@@ -140,7 +137,7 @@ export default function UpdateItem({match}) {
                 <div className="form-group">
                     <label className="text-muted">Price</label>
                     <input
-                    required
+                        required
                         onChange={handleChange('price')}
                         type="number"
                         className="form-control"
@@ -162,7 +159,7 @@ export default function UpdateItem({match}) {
                 <div className="form-group">
                     <label className="text-muted">Location</label>
                     <input
-                    required
+                        required
                         onChange={handleChange('location')}
                         type="text"
                         className="form-control"

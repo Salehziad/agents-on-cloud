@@ -1,14 +1,10 @@
-import React, { useState ,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {getUserCart} from "../../api/itemApi";
 import {isAuthenticated} from '../../auth';
 import Items from '../item/Items'
-import {
-    Grid,
-    Grow,
-} from '@mui/material';
+import {Grid, Grow} from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import './Cart.css';
-
 
 export default function Cart(props) {
     const [addcart,
@@ -20,26 +16,24 @@ export default function Cart(props) {
     const {user, token} = isAuthenticated();
 
     const loadItems = async() => {
-        await getUserCart(user._id,token).then(data => {
+        await getUserCart(user._id, token).then(data => {
             if (data.error) {
                 setError(data.error);
             } else {
                 setItems(data)
-                // data.map((item)=>{
-                //     return setItems(items => [...items, item.item])
-                // })
-            } 
+                // data.map((item)=>{     return setItems(items => [...items, item.item]) })
+            }
         });
     };
     console.log(items)
-    
+
     useEffect(() => {
         loadItems()
     }, []);
     const [anchorEl,
         setAnchorEl] = useState(null);
 
-     const handleClick = (event) => {
+    const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -51,7 +45,7 @@ export default function Cart(props) {
     const id = open
         ? 'simple-popover'
         : undefined;
-    // const emptyCart = () => {return(<h3>Cart is Empty</h3>)}  
+    // const emptyCart = () => {return(<h3>Cart is Empty</h3>)}
     return (
         <div>
             <Grow in>

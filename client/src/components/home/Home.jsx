@@ -1,35 +1,35 @@
-import React, {useEffect,useState} from 'react';
-import {Grow,Grid} from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {Grow, Grid} from '@mui/material';
 import {getItems} from "../../api/itemApi";
 import Item from '../item/Items';
 import './home.css'
 
 export default function Home() {
 
-        const [items,
-            setItems] = useState('');
-        const [error,
-            setError] = useState('');
-
+    const [items,
+        setItems] = useState('');
+    const [error,
+        setError] = useState('');
 
     const loadItems = async() => {
-      await getItems().then(data => {
-          if (data.error) {
-              setError(data.error);
-          } else {
-            setItems(data);
-          }
-      });
-  };
+        await getItems().then(data => {
+            if (data.error) {
+                setError(data.error);
+            } else {
+                setItems(data);
+            }
+        });
+    };
 
     useEffect(() => {
-      loadItems()
+        loadItems()
     }, []);
     return (
         <div>
             <Grow in>
                 <Grid className='home-container' container alignItems="stretch" spacing={3}>
-                    {items?items.map((prod, i) => (
+                    {items
+                        ? items.map((prod, i) => (
                             <Grid
                                 item
                                 xs={12}
@@ -42,7 +42,8 @@ export default function Home() {
                                 key={i}>
                                 <Item item={prod} i={i}/>
                             </Grid>
-                        )):null}
+                        ))
+                        : null}
                 </Grid>
             </Grow>
         </div>

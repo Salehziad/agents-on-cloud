@@ -6,6 +6,5 @@ const {userSignupValidator}=require('../middlewar/index') ;
 
 router.post('/signup',userSignupValidator,signup);
 router.post('/signin',signin);
-// router.get('/signout',signout);
 
 module.exports=router;

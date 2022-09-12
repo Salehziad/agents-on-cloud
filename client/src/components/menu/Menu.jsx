@@ -8,7 +8,6 @@ import IconButton from '@mui/material/IconButton';
 import {useNavigate} from 'react-router-dom';
 import {signout, isAuthenticated} from "../../auth"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Cart from '../cart/Cart';
 
 export default function Menu() {
     const navigate = useNavigate();
@@ -37,7 +36,10 @@ export default function Menu() {
                     </Typography>
                     {isAuthenticated()
                         ? <React.Fragment>
-                                <ShoppingCartIcon className='cart' variant="contained" onClick={() => navigate('/cart')}/>
+                                <ShoppingCartIcon
+                                    className='cart'
+                                    variant="contained"
+                                    onClick={() => navigate('/cart')}/>
                                 <Button color="inherit" onClick={() => navigate('/favourites')}>Favourites</Button>
                                 <Button color="inherit" onClick={() => navigate('/dashboard')}>Dashboard</Button>
                                 <Button color="inherit" onClick={() => navigate('/dashboard/createitem')}>Create</Button>

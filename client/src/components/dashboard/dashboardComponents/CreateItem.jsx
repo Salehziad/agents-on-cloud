@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import FileBase64 from 'react-file-base64';
 import {isAuthenticated} from '../../../auth';
 import {createItem} from '../../../api/itemApi'
-import {Link} from 'react-router-dom';
-// import {createProduct, getCategories} from './apiAdmin';
 
 export default function CreateItem() {
     const [item,
@@ -32,7 +30,7 @@ export default function CreateItem() {
         loading,
         error,
         createdProduct,
-        redirectToProfile,
+        redirectToProfile
     } = item;
 
     const handleChange = name => event => {
@@ -41,7 +39,7 @@ export default function CreateItem() {
             ...item,
             [name]: value,
             loading: false,
-        createdProduct: '',
+            createdProduct: ''
         });
     };
 
@@ -67,17 +65,19 @@ export default function CreateItem() {
                     description: '',
                     image: '',
                     price: '',
-                    category:'',
-                    location:'',
+                    category: '',
+                    location: '',
                     quantity: '',
                     loading: false,
                     createdProduct: data.data.name
                 });
             }
-            window.location.reload();
+            window
+                .location
+                .reload();
         });
     };
-    console.log('sssss',item)
+    console.log('sssss', item)
 
     const newItemForm = () => (
         <div className="container">
@@ -90,14 +90,14 @@ export default function CreateItem() {
                         multiple={false}
                         onDone={({base64}) => setItem({
                         ...item,
-                        image: base64,
+                        image: base64
                     })}/>
                 </div>
 
                 <div className="form-group">
                     <label className="text-muted">Name</label>
                     <input
-                    required
+                        required
                         onChange={handleChange('name')}
                         type="text"
                         className="form-control"
@@ -107,7 +107,7 @@ export default function CreateItem() {
                 <div className="form-group">
                     <label className="text-muted">Description</label>
                     <textarea
-                    required
+                        required
                         onChange={handleChange('description')}
                         className="form-control"
                         value={description}/>
@@ -116,7 +116,7 @@ export default function CreateItem() {
                 <div className="form-group">
                     <label className="text-muted">Price</label>
                     <input
-                    required
+                        required
                         onChange={handleChange('price')}
                         type="number"
                         className="form-control"
@@ -138,7 +138,7 @@ export default function CreateItem() {
                 <div className="form-group">
                     <label className="text-muted">Location</label>
                     <input
-                    required
+                        required
                         onChange={handleChange('location')}
                         type="text"
                         className="form-control"

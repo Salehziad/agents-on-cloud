@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Tab, Tabs, Grow, Grid} from '@mui/material';
-import {useNavigate} from 'react-router-dom';
+import {Grow, Grid} from '@mui/material';
 import {getUserFavorites} from "../../api/itemApi";
 import {isAuthenticated} from '../../auth';
 
@@ -17,15 +16,15 @@ export default function Favorites() {
     const {user, token} = isAuthenticated();
 
     const loadItems = async() => {
-        await getUserFavorites(user._id,token).then(data => {
+        await getUserFavorites(user._id, token).then(data => {
             if (data.error) {
                 setError(data.error);
             } else {
                 setItems(data)
-            } 
+            }
         });
     };
-    
+
     useEffect(() => {
         loadItems()
     }, []);

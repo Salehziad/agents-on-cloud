@@ -7,10 +7,8 @@ const { userById } = require("../controllers/user");
 
 router.get('/:itemId', getItemComments)
 router.post('/:userId/:itemId',requireSignin,isAuth,createComment);
-// router.get('/:userId',requireSignin,isAuth,listByUser);
 
 router.delete('/:commentId/:userId',requireSignin,isAuth,commentById,remove);
-// router.put('/test/:itemId',itemById,test);
 
 router.param("userId", userById);
 router.param("itemId", itemById);

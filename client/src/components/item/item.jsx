@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,17 +9,17 @@ import UseStyles from './styles';
 import moment from 'moment';
 import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
 import {getOneItem} from '../../api/itemApi';
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 export default function Item() {
-    const { itemId } = useParams();
+    const {itemId} = useParams();
     const classes = UseStyles();
     const [item,
         setItem] = useState('');
     const [error,
         setError] = useState('');
 
-    async function loadItem(){
+    async function loadItem() {
         await getOneItem(itemId).then(data => {
             if (data.error) {
                 setError(data.error);
@@ -34,12 +34,12 @@ export default function Item() {
     }, []);
 
     return (
-            <div className={classes.details}>
+        <div className={classes.details}>
 
             <Card
                 className={classes.card}
                 sx={{
-                    maxWidth: 500
+                maxWidth: 500
             }}>
                 <CardMedia
                     className={classes.media}
@@ -52,10 +52,18 @@ export default function Item() {
                     <Typography variant='body2' color='textSecondary' componentt='h2'>{item.price}JD</Typography>
                 </div>
                 <CardContent >
-                    <Typography className={classes.pointer} gutterBottom variant="h5" component="div">
+                    <Typography
+                        className={classes.pointer}
+                        gutterBottom
+                        variant="h5"
+                        component="div">
                         {item.name}
                     </Typography>
-                    <Typography className={classes.pointer} gutterBottom variant="h5" component="div">
+                    <Typography
+                        className={classes.pointer}
+                        gutterBottom
+                        variant="h5"
+                        component="div">
                         {item.description}
                     </Typography>
                     <Typography className={classes.pointer} variant="body2" color="text.secondary">
@@ -66,13 +74,13 @@ export default function Item() {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button  size="small">Add To Cart</Button>
+                    <Button size="small">Add To Cart</Button>
                     <FavoriteSharpIcon className={classes.icon}></FavoriteSharpIcon>
                 </CardActions>
             </Card>
             <div>
                 comments
             </div>
-            </div>
+        </div>
     );
 }

@@ -11,9 +11,9 @@ import {deleteItem} from '../../../api/itemApi'
 import {isAuthenticated} from '../../../auth';
 import Swal from 'sweetalert2'
 
-
 export default function Items({item}) {
-    const[show,setShow]=React.useState(true)
+    const [show,
+        setShow] = React.useState(true)
     const {user, token} = isAuthenticated();
     const navigate = useNavigate();
     const {
@@ -28,14 +28,15 @@ export default function Items({item}) {
 
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
         },
         buttonsStyling: false
-      })
+    })
 
-    function handleDelete(){
-        swalWithBootstrapButtons.fire({
+    function handleDelete() {
+        swalWithBootstrapButtons
+            .fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             icon: 'warning',
@@ -43,32 +44,26 @@ export default function Items({item}) {
             confirmButtonText: 'Yes, delete it!',
             cancelButtonText: 'No, cancel!',
             reverseButtons: true
-          }).then((result) => {
-            if (result.isConfirmed) {
-                setShow(false)
-                deleteItem(_id,user._id,token)
-              swalWithBootstrapButtons.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )
-            } else if (
-              /* Read more about handling dismissals below */
-              result.dismiss === Swal.DismissReason.cancel
-            ) {
-              swalWithBootstrapButtons.fire(
-                'Cancelled',
-                'Your imaginary file is safe :)',
-                'error'
-              )
-            }
-          })
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    setShow(false)
+                    deleteItem(_id, user._id, token)
+                    swalWithBootstrapButtons.fire('Deleted!', 'Your file has been deleted.', 'success')
+                } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire('Cancelled', 'Your imaginary file is safe :)', 'error')
+                }
+            })
     }
 
     return (
         <React.Fragment>
             <Card
-                className={show?classes.card:classes.hide}
+                className={show
+                ? classes.card
+                : classes.hide}
                 sx={{
                 maxWidth: 345
             }}>

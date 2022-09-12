@@ -2,10 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {getUserItems} from "../../api/itemApi";
 import {isAuthenticated} from '../../auth';
 import UseStyles from './styles';
-import {
-    Grid,
-    Grow
-} from '@material-ui/core';
+import {Grid, Grow} from '@material-ui/core';
 import Items from './dashboardComponents/Items';
 export default function Dashboard() {
     const classes = UseStyles();
@@ -13,11 +10,11 @@ export default function Dashboard() {
         setDate] = useState('');
     const [error,
         setError] = useState('');
-     
+
     const {user, token} = isAuthenticated();
 
     const loadProductsByArrival = async() => {
-        await getUserItems(user._id,token).then(data => {
+        await getUserItems(user._id, token).then(data => {
             if (data.error) {
                 setError(data.error);
             } else {
@@ -31,10 +28,18 @@ export default function Dashboard() {
     }, []);
     return (
         <div>
-            {/* <DashBoardTags/> */}
             <Grow in>
-                <Grid style={{'padding': '3%','width': '100%'}} className={classes.container} container alignItems="stretch" spacing={3}>
-                    {data?data.map((prod, i) => (
+                <Grid
+                    style={{
+                    'padding': '3%',
+                    'width': '100%'
+                }}
+                    className={classes.container}
+                    container
+                    alignItems="stretch"
+                    spacing={3}>
+                    {data
+                        ? data.map((prod, i) => (
                             <Grid
                                 item
                                 xs={12}
@@ -47,7 +52,8 @@ export default function Dashboard() {
                                 key={i}>
                                 <Items item={prod} i={i}/>
                             </Grid>
-                        )):null}
+                        ))
+                        : null}
                 </Grid>
             </Grow>
         </div>
